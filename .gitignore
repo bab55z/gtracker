@@ -2,3 +2,4 @@ gtracker-client/.vscode
 gtracker-client/node_modules
 
 gtracker-server/.vscode
+gtracker-server/docker/data/db
