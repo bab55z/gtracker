@@ -1,0 +1,14 @@
+{
+    "watch": [
+      "src",
+      "./.env"
+    ],
+    "ext": "ts,js,mjs,cjs,json",
+    "ignore": [
+      "*.test.ts"
+    ],
+    "delay": "1",
+    "execMap": {
+      "ts": "ts-node"
+    }
+  }

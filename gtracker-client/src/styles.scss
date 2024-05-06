@@ -1,0 +1,49 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.small-btn {
+    @apply rounded-lg border border-gray-700 bg-gray-700 px-3 py-1.5 text-center text-xs font-medium text-white shadow-sm hover:border-green-500 hover:bg-green-500;
+}
+
+.input-field {
+    @apply w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-green-500 focus:shadow-md;
+}
+
+.input-label {
+    @apply mb-3 block text-base font-medium text-[#07074D];
+}
+
+.input-suffix {
+    @apply pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-gray-500;
+}
+
+.divider{
+    @apply my-8 flex items-center gap-4 before:h-px before:flex-1 before:bg-gray-300  before:content-[''] after:h-px after:flex-1 after:bg-gray-300  after:content-[''];
+}
+
+.divider-t{
+    @apply font-bold my-2 flex items-center gap-4 before:h-px before:flex-1 before:bg-gray-300  before:content-[''] after:h-px after:flex-1 after:bg-gray-300  after:content-[''];
+}
+
+.submit-btn{
+    @apply rounded-md bg-green-500 hover:bg-green-600 py-3 px-8 text-base font-semibold text-white outline-none disabled:cursor-not-allowed disabled:bg-green-200;
+}
+
+.submit-btn-s{
+    @apply text-white absolute right-2.5 bottom-2.5 bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-4 py-2 disabled:cursor-not-allowed disabled:bg-green-200;
+}
+
+.status-btn{
+    @apply font-medium rounded-lg text-xs mx-2 py-2 disabled:cursor-not-allowed disabled:bg-green-200 ;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}

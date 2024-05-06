@@ -1,0 +1,96 @@
+<div class="mb-10">
+    <div class="flex flex-wrap items-center justify-center gap-5 mb-6 ">
+        <a role="button" routerLink="/admin" type="button" class="small-btn">
+            Back
+        </a>
+    </div>
+    <div class="rounded-lg bg-gray-50 p-4 text-sm text-gray-600">
+        <div>
+            <h4 class="font-bold">New package</h4>
+            <div class="mt-1">
+                Fill the form to add a new package.
+            </div>
+        </div>
+
+        <div class="flex justify-between mt-5 text-left">
+            <div class="mx-auto w-full max-w-[550px]">
+                <form class="mt-3" [formGroup]="packageForm" (ngSubmit)="onSubmit()">
+                    <div class="divider">Package details</div>
+
+                    <div class="mb-5">
+                        <label for="description" class="input-label">Description </label>
+                        <textarea rows="4" name="description"  formControlName="description" id="desc" placeholder="Type the package description" class="input-field" ></textarea>
+                      </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="mb-5">
+                            <label  for="height"  class="input-label"> Height</label>
+                            <div class="relative">
+                                <div class="input-suffix">CM</div>
+                                <input type="number" name="height" inputmode="numeric"  formControlName="height" id="height" placeholder="Package Height" class="input-field" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <label for="width" class="input-label">Width</label>
+                            <div class="relative">
+                                <div class="input-suffix">CM</div>
+                                <input type="number" name="width"  formControlName="width" id="width" placeholder="Package Width" class="input-field" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <label  for="depth"  class="input-label"> Depth</label>
+                            <div class="relative">
+                                <div class="input-suffix">CM</div>
+                                <input type="number" name="depth"  formControlName="depth" id="depth" placeholder="Package Depth" class="input-field" />
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <label  for="weight"  class="input-label"> Weight</label>
+                            <div class="relative">
+                                <div class="input-suffix">GR</div>
+                                <input type="number" name="weight"  formControlName="weight" id="weight" placeholder="Package Weight" class="input-field" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="divider">Sender details</div>
+                    <div class="mb-5">
+                        <label for="from_name" class="input-label" >Sender name</label>
+                        <input type="text" name="from_name" formControlName="from_name" id="subject" placeholder="Enter your subject" class="input-field"  />
+                    </div>
+                
+                    <div class="mb-5">
+                        <label for="subject" class="input-label" >Sender address</label>
+                        <input type="text" name="from_address"  formControlName="from_address" id="subject" placeholder="Enter your subject" class="input-field"  />
+                    </div>
+                    
+                    <div class="divider">Recipient details</div>
+                    <div class="mb-5">
+                        <label for="to_name" class="input-label" >Recipient name</label>
+                        <input type="text" name="to_name"  formControlName="to_name" id="subject" placeholder="Enter your subject" class="input-field" />
+                    </div>
+                
+                    <!-- <div class="mb-5">
+                        <label for="subject" class="input-label" formControlName="to_name">Recipient address</label>
+                        <address-autocomplete />
+                    </div> -->
+                
+                    <div class="mb-5">
+                        <label for="subject" class="input-label" >Recipient address</label>
+                        <input type="text" name="to_address"  formControlName="to_address" id="subject" placeholder="Enter your subject" class="input-field" />
+                    </div>
+
+                  <div class="flex w-full gap-3 mt-10">
+                    <button [disabled]="!packageForm.valid" type="submit" class="submit-btn">
+                      Create package
+                    </button>
+                    <button routerLink="/admin" class="hover:shadow-form rounded-md bg-gray-500 py-3 px-8 text-base font-semibold text-white outline-none">
+                        Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+        </div>
+    </div>
+</div>
+

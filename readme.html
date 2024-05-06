@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Gozem Package Tracker</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="gozem-package-tracker">Gozem Package Tracker</h1>
+<p>A Gozem app to track packages delivery.</p>
+<p>Gozem tracker quick docs</p>
+<h2 id="1-overview">1) Overview</h2>
+<p>Gozem tracker allows users, drivers and admin to manage a package tracking system</p>
+<p>The project is divided in two part/folders:
+- <code>./gtracker-server</code> : this directory contains the nodejs/express server app
+- <code>./gtracker-client</code> : this directory contains the angular client app</p>
+<h2 id="2-requirements">2) Requirements</h2>
+<ul>
+<li>
+<p>Server app</p>
+<ul>
+<li>MongoDB : a mongoDb run instance with access credentials</li>
+<li>NodeJS installed: to server the app</li>
+<li>npm/yarn package node manager: to install the dependencies</li>
+</ul>
+</li>
+<li>
+<p>Client app</p>
+<ul>
+<li>Angular Cli: to launch and run the angular app</li>
+</ul>
+</li>
+<li>
+<p>Docker</p>
+<ul>
+<li>Docker installed,</li>
+<li>Docker desktop (Optional but recommended)</li>
+<li>Make installed on the system (Optional but recommended: <a href="https://www.gnu.org/software/make/#documentation">https://www.gnu.org/software/make/#documentation</a>)</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-installing-and-running-the-app">3) Installing and running the app</h2>
+<p>You have two options to run the app.</p>
+<ul>
+<li>
+<h5 id="env-file-gtracker-server">.env file (<code>./gtracker-server</code>)</h5>
+</li>
+</ul>
+<pre><code class="language-markdown">  ENVIRONMENT=dev
+  # Absolute path to the server app folder 
+  BASE<span class="hljs-emphasis">_PATH=/Users/williem/ws/Gozem/gtracker-server
+  # Absolute path to the client app folder 
+  CLIENT_</span>BASE<span class="hljs-emphasis">_PATH=/Users/williem/ws/Gozem/gtracker-client
+  # Path to the docker compose file
+  COMPOSE_</span>FILE=$BASE<span class="hljs-emphasis">_PATH/docker/docker-compose.yml
+  # Docker compose project name
+  COMPOSE_</span>PROJECT<span class="hljs-emphasis">_NAME=package-tracker
+  # Path to the server app Dockerfile
+  DOCKERFILE_</span>NAME=$BASE<span class="hljs-emphasis">_PATH/docker/server.dockerfile
+  # Path to the client app Dockerfile
+  CLIENT_</span>DOCKERFILE<span class="hljs-emphasis">_NAME=$BASE_</span>PATH/docker/client.dockerfile
+
+  # Mongo DB credentials
+  DB<span class="hljs-emphasis">_USER=gtracker
+  DB_</span>HOST=127.0.0.1
+  DB<span class="hljs-emphasis">_PASSWORD=gtracker
+  DB_</span>NAME=gtracker
+  DB<span class="hljs-emphasis">_LOCAL_</span>PORT=7017 # exposed port when using docker
+  DB<span class="hljs-emphasis">_PORT=27017
+  # Mongo DB storage docker container folder
+  DB_</span>STORAGE=$BASE<span class="hljs-emphasis">_PATH/docker/data/db
+
+  # Server app exposed port from the docker container
+  NODE_</span>DOCKER<span class="hljs-emphasis">_EXPOSE_</span>PORT=3000
+  # Server app port and server app docker container internal port
+  NODE<span class="hljs-emphasis">_APP_</span>PORT=3000
+  # Server app folder
+  APP<span class="hljs-emphasis">_FOLDER=$BASE_</span>PATH/
+  # Client app exposed port from the docker container
+  ANGULAR<span class="hljs-emphasis">_DOCKER_</span>EXPOSE<span class="hljs-emphasis">_PORT=4200
+  # Client app folder
+  ANGULAR_</span>APP<span class="hljs-emphasis">_FOLDER=$CLIENT_</span>BASE<span class="hljs-emphasis">_PATH/
+</span></code></pre>
+<ul>
+<li>
+<h5 id="run-directly">Run directly</h5>
+<ul>
+<li>Run your MongoDb instance and create the credentials for the server app</li>
+<li>Set configs (.env file)
+<ul>
+<li>server · db credentials</li>
+<li>server · port</li>
+<li>client · <em>delivery service</em>, <em>package service</em> and <em>websocket service</em> api url port replace the <strong>serverPort</strong> environment variable <code>./gtracker-client/src/environments/environment.ts</code></li>
+</ul>
+</li>
+<li>install the server dependencies: go to the server folder (./gtracker-server) and run <code>yarn install</code></li>
+<li>install the client dependencies: got to the client folder (./gtracker-client) and run <code>yarn install</code></li>
+<li>start the server: go to the server folder (./gtracker-server) and run <code>yarn dev</code> or <code>yarn start</code>, the app will be running on the port configured previously</li>
+<li>start the client app: go to the client folder (./gtracker-client) and run <code>ng serve</code>, the app will be runnning on the default port <a href="http://localhost:4200">http://localhost:4200</a></li>
+</ul>
+</li>
+<li>
+<h5 id="run-using-docker-compose">Run using Docker (compose)</h5>
+<p><em>Before going ahead, if you updated the server port in the client app folder</em>  <code>./gtracker-client/src/environments/environment.ts</code> <em>you need to set it back to <strong>3000</strong>, during the build, the <strong>3000</strong> is replaced with the correct server port from env file.</em></p>
+<h5 id=""></h5>
+<p>Configs and files related to docker are located in the server folder <code>(./gtracker-server)</code> and <code>(./gtracker-server/docker)</code> thus the following commands need to be run from that folder <code>(./gtracker-server)</code></p>
+<ul>
+<li>Set configs
+<ul>
+<li>go to the server folder (./gtracker-server) and edit the .env file using following instruction</li>
+</ul>
+</li>
+<li>start docker or launch docker desktop
+<ul>
+<li>
+<h4 id="if-you-have-make">If you have Make:</h4>
+<p>you can run the following commands to manage the app</p>
+<h5 id="docker-compose-commands">DOCKER COMPOSE COMMANDS</h5>
+<ul>
+<li><code>make compose_up</code> to spin up a full environment composed of the db, the server and the client.</li>
+<li><code>make compose_down</code> to down the environment</li>
+</ul>
+<h5 id="server-docker-commands">SERVER DOCKER COMMANDS</h5>
+<ul>
+<li><code>build_image</code> to build the server image</li>
+<li><code>run_container</code> to run the server container</li>
+<li><code>stop_container</code> to stop the server container</li>
+<li><code>remove_container</code> to remove the server container</li>
+<li><code>rerun_container</code> to remove and run a new server container</li>
+<li><code>build_run</code> to build the server image and run a new container</li>
+</ul>
+<h5 id="client-docker-commands">CLIENT DOCKER COMMANDS</h5>
+<ul>
+<li><code>build_client_image</code> to build the client image</li>
+<li><code>run_client_container</code> to run the client container</li>
+<li><code>stop_client_container</code> to stop the client container</li>
+<li><code>remove_client_container</code> to remove the client container</li>
+<li><code>rerun_client_container</code> to remove and run a new client container</li>
+<li><code>build_client_run</code> to build the client image and run a new container</li>
+</ul>
+</li>
+<li>
+<h4 id="if-you-dont-have-make">If you don't have Make:</h4>
+<p>go to the server folder (./gtracker-server) run <code>docker-compose --env-file .env up -d</code></p>
+<h5 id="-1"></h5>
+<p>Here are other useful docker commands, you'll need to replace the placeholder <code>${XXX}</code> with the corresponding</p>
+<h5 id="server-docker-commands-1">SERVER DOCKER COMMANDS</h5>
+<ul>
+<li><code>docker build --tag ${IMAGE_NAME} . -f ./docker/server.dockerfile</code> to build the server image</li>
+<li><code>docker run --name '${CONTAINER_NAME}' -p ${NODE_DOCKER_EXPOSE_PORT}:${NODE_APP_PORT} -d ${IMAGE_NAME}</code> to run the server container</li>
+<li><code>docker stop ${CONTAINER_NAME}</code> to stop the server container</li>
+<li><code>docker rm ${CONTAINER_NAME}</code> to remove the server container</li>
+</ul>
+<h5 id="client-docker-commands-1">CLIENT DOCKER COMMANDS</h5>
+<ul>
+<li><code>docker build --tag ${IMAGE_NAME_CLIENT} ${CLIENT_BASE_PATH} -f ./docker/client.dockerfile --build-arg NODE_APP_PORT=${NODE_APP_PORT}</code> to build the client image</li>
+<li><code>docker run --name '${CONTAINER_NAME_CLIENT}' -p ${ANGULAR_DOCKER_EXPOSE_PORT}:4200 -d ${IMAGE_NAME_CLIENT}</code> to run the client container</li>
+<li><code>docker stop ${CONTAINER_NAME_CLIENT}</code> to stop the client container</li>
+<li><code>docker rm ${CONTAINER_NAME_CLIENT}</code> to remove the client container</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-usage">4) Usage</h2>
+<p>Open your browser and go to the app, typically <a href="http://localhost:4200">http://localhost:4200</a> and Use the app accordingly to the business case specification</p>
+<h2 id="5-troubleshooting">5) Troubleshooting</h2>
+<p>If you encounter some errors with docker,</p>
+<ul>
+<li>restarting docker or docker desktop may help fixing errors and flush docker caches.</li>
+<li>make sure that you have enough disk space left</li>
+<li>make sure to have a stable internet connection</li>
+<li>If you encounter any other errors ,you may reach out to me for assistance.</li>
+</ul>
+<h2 id="5-how-to-make-the-app-better">5) how to make the app better</h2>
+<ul>
+<li>improve errors handling</li>
+<li>add authentication and authorization to separate which part of the app is available for the logged in user</li>
+<li>clean up unused codes</li>
+<li>clean up logged information to avoid sensitive information leaks</li>
+<li>add auto complete address (from and to) while retrieving the corresponding the related lat/lng point</li>
+<li>some minor fix on the ui</li>
+<li>setup some ci/cd pipeline</li>
+<li>properly setup .gitignore and other .*ignore files</li>
+</ul>
+<h2 id="6-author">6) Author</h2>
+<p>My name is Williem Babalola. A software engineer with more than 10 years of experience.
+Skilled in Full Stack development, problem-solving, and software architecture with a focus on creating innovative solutions.
+<a href="mailto:yo@williems.com">yo@williems.com</a>
+Thanks</p>
+<h2 id="bonus--app-preview">BONUS 🙃 App Preview</h2>
+<h3 id="docker-compose">docker compose</h3>
+<p><img src="gtracker-server/assets/gozem.compose.gif" alt="compose"></p>
+<h3 id="create-packagedelivery">create package/delivery</h3>
+<p><img src="gtracker-server/assets/gozem.create.gif" alt="create"></p>
+<h3 id="preview">preview</h3>
+<p><img src="gtracker-server/assets/gozem.preview.gif" alt="preview"></p>
+<h3 id="track-package">track package</h3>
+<p><img src="gtracker-server/assets/gozem.track.gif" alt="track"></p>
+<h3 id="live-status-update">live status update</h3>
+<p><img src="gtracker-server/assets/gozem.update.gif" alt="update"></p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

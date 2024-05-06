@@ -1,0 +1,57 @@
+# version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:5.0.2
+    restart: unless-stopped
+    env_file: "${BASE_PATH}/.env"
+    container_name: db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$DB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$DB_PASSWORD
+    # ports:
+      # - $DB_LOCAL_PORT:$DB_DOCKER_PORT
+    volumes:
+      - $DB_STORAGE:/data/db
+    networks:
+      - app-network  
+  app:
+    depends_on:
+      - mongodb
+    build: 
+      context: ${BASE_PATH}
+      dockerfile: "${DOCKERFILE_NAME}"
+    restart: unless-stopped
+    env_file: "${BASE_PATH}/.env"
+    container_name: app
+    ports:
+      - $NODE_DOCKER_EXPOSE_PORT:$NODE_APP_PORT
+    environment:
+      - DB_HOST=mongodb
+      - DB_USER=$DB_USER
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_NAME=$DB_NAME
+      - DB_PORT=$DB_PORT
+    stdin_open: true
+    tty: true
+    networks:
+      - app-network
+  frontend:
+    depends_on:
+      - mongodb
+      - app
+    container_name: frontend
+    build:
+      context: ${CLIENT_BASE_PATH}
+      dockerfile: "${CLIENT_DOCKERFILE_NAME}"
+      args:
+        - NODE_APP_PORT=$NODE_APP_PORT
+    restart: unless-stopped
+    ports:
+      - $ANGULAR_DOCKER_EXPOSE_PORT:4200
+    networks:
+     - app-network
+
+networks:
+  app-network:
+    driver: bridge

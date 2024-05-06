@@ -1,0 +1,85 @@
+<div>
+    <div class="rounded-lg bg-gray-50 p-4 text-gray-600">
+        <div class="text-sm">
+            <h4 class="font-bold">{{ forDriver ? 'Driver panel' : 'Track a package' }} </h4>
+            <div class="mt-1">
+                 {{ forDriver ? 'You are viewing the driver page.' : 'You are viewing the web tracker page.' }} 
+            </div>
+        </div>
+        
+        <div 
+        [ngClass]="
+                [
+                    'mt-5', 
+                    forDriver ? 'w-10/12':'w-full',
+                ]
+            ">
+            <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">   
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+                <div class="relative">
+                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <input type="search" formControlName="package_id" id="package_id" class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300" placeholder="Enter your parcel track id ..." required>
+                    <button type="submit" [disabled]="searchForm.invalid" class="submit-btn-s">Track Package</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="flex mt-5 text-left">
+            <div class="text-xs pr-3" [ngClass]="[forDriver ? 'w-4/12':'w-5/12']">
+                <div>
+                    <div class="divider-t">Package details</div> 
+                    <span *ngIf="package?._id"><b>Package ID:</b> {{package?._id}}</span> <br/>
+                    <span *ngIf="package?.createdAt"><b>Date:</b> {{package?.createdAt}}</span><br>
+                    <span *ngIf="package?.description"><b>Description:</b> {{package?.description}}</span> <br/>
+                    <span *ngIf="package?.weight"><b>Weight:</b> {{package?.weight}}</span> <br/>
+                    <span *ngIf="package?.width"><b>Width:</b> {{package?.width}}</span> <br/>
+                    <span *ngIf="package?.height"><b>Height:</b> {{package?.height}}</span> <br/>
+                    <span *ngIf="package?.depth"><b>Depth:</b> {{package?.depth}}</span> <br/>
+                    <span *ngIf="package?.from_name"><b>Sender name:</b> {{package?.from_name}}</span> <br/>
+                    <span *ngIf="package?.from_address"><b>Sender address:</b> {{package?.from_address}}</span> <br/>
+                    <!-- <span *ngIf="package.from_location"><b>from_location:</b> {{package.from_location}}</span> -->
+                    <span *ngIf="package?.to_name"><b>Recipient name:</b> {{package?.to_name}}</span> <br />
+                    <span *ngIf="package?.to_address"><b>Recipient address:</b> {{package?.to_address}}</span><br/>
+                    <!-- <span *ngIf="package.to_location"><b>to_location:</b> {{package.to_location}}</span> -->
+                    <!-- <span *ngIf="package.deliveries"><b>deliveries:</b> {{package.deliveries}}</span> -->
+                    <span *ngIf="package?.active_delivery_id"><b>Active delivery:</b> {{package?.active_delivery_id}}</span> <br/>
+                </div>
+                <div class="mt-5 w-full">
+                    <div class="divider-t">Delivery details</div>
+                    <table *ngIf="package?.deliveries" class="w-full bg-white">
+                        <thead class="bg-gray-200 text-black border-b border-b-gray-300">
+                          <tr>
+                            <th class="w-1/3 text-left py-1 font-semibold text-xs">Delivery Id</th>
+                            <th class="text-left py-1 font-semibold text-xs">Date</th>
+                            <th class="w-1/3 text-left py-1 font-semibold text-xs">Status</th>
+                          </tr>
+                        </thead>
+                          <tbody class="text-gray-700">
+                          <tr *ngFor="let delivery of package?.deliveries" class="even:bg-gray-100 first:bg-gray-700 first:text-white first:font-bold">
+                              <td title="{{delivery._id}}" class="w-1/3 border text-left p-1 hover:text-green-600">{{ delivery._id}}</td>
+                              <td title="{{delivery.createdAt}}" class="w-1/3 border  text-left p-1">{{ delivery.createdAt}}</td>
+                              <td class="text-left p-1  border ">{{ delivery.status }}</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                </div>
+            </div>
+            <div class="" [ngClass]="[forDriver ? 'w-6/12':'w-7/12']">
+                <div class="border rounded-lg border-gray-300 h-[400px] min-h-[400px] overflow-hidden relative">
+                    <div  id="leafletMap" class="relative w-full min-h-[400px]"></div>
+                </div>
+            </div>
+            <div *ngIf="forDriver" class="w-2/12">
+                <div class="flex flex-col gap-2">
+                    <button (click)="updatePackageStatus('picked-up')" [disabled]="!package || package.active_delivery?.status !== 'open'" type="submit" class="text-white  bg-blue-500 hover:bg-blue-800 disabled:hover:bg-blue-200 disabled:bg-blue-200 status-btn">Picked up</button>
+                    <button (click)="updatePackageStatus('in-transit')" [disabled]="!package || package.active_delivery?.status !== 'picked-up'" type="submit" class="text-white  bg-orange-400 hover:bg-orange-800 disabled:hover:bg-orange-200 disabled:bg-orange-200 status-btn">In-transit</button>
+                    <button (click)="updatePackageStatus('delivered')" [disabled]="!package || package.active_delivery?.status !== 'in-transit'" type="submit" class="text-white  bg-green-500 hover:bg-green-800 disabled:hover:bg-green-200 disabled:bg-green-200 status-btn">Delivered</button>
+                    <button (click)="updatePackageStatus('failed')" [disabled]="!package || package.active_delivery?.status !== 'in-transit'" type="submit" class="text-white  bg-red-500 hover:bg-red-800 disabled:hover:bg-red-200 disabled:bg-red-200 status-btn">Failed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
