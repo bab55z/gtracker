@@ -32,9 +32,9 @@ You have two options to run the app.
   ````markdown
     ENVIRONMENT=dev
     # Absolute path to the server app folder 
-    BASE_PATH=/Users/williem/ws/Gozem/gtracker-server
+    BASE_PATH=/projects/ws/Gozem/gtracker-server
     # Absolute path to the client app folder 
-    CLIENT_BASE_PATH=/Users/williem/ws/Gozem/gtracker-client
+    CLIENT_BASE_PATH=/projects/ws/Gozem/gtracker-client
     # Path to the docker compose file
     COMPOSE_FILE=$BASE_PATH/docker/docker-compose.yml
     # Docker compose project name
